@@ -110,10 +110,13 @@ class Sneeuwvlokje {
         ' <polygon  class=ster  points="238.9,159.9 268.5,144.8 262.5,177.4 286,200.9 253.1,205.3 238,234.9 223.7,204.9 190.9,199.7 214.9,176.8 209.8,144 "/> '+
         ' </svg>';
 
-    constructor(horizontale, verticale, valsnelheid) {
-        this._horizontale = horizontale + inhoud.offsetTop;
-        this._verticale = verticale + inhoud.offsetLeft;
-        this._valsnelheid = valsnelheid;
+    constructor(horizontale, verticale, valsnelheid, grootte, draaisnelheid) {
+        this._grootte = grootte;
+        this._horizontale = horizontale + inhoud.offsetLeft;
+        this._verticale = verticale + inhoud.offsetTop;
+        this._valsnelheid = valsnelheid * grootte;
+        this._draaisnelheid = draaisnelheid;
+        this._hoek = 0;
         this._sneeuw;
     }
 
@@ -121,6 +124,8 @@ class Sneeuwvlokje {
         this._sneeuw = document.createElement('div');
         this._sneeuw.className = 'sneeuwvlokje';
         this._sneeuw.style.top  = this._verticale + 'px';
+        this._sneeuw.style.height = 3 * this._grootte + 'em';
+        this._sneeuw.style.width = 3 * this._grootte + 'em';
         this._sneeuw.style.left = this._horizontale + 'px';
         this._sneeuw.innerHTML = this._svg;
         inhoud.appendChild(this._sneeuw);
@@ -131,11 +136,13 @@ class Sneeuwvlokje {
         this._verticale += this._valsnelheid;
         this._sneeuw.style.left = this._horizontale + 'px';
         this._sneeuw.style.top = this._verticale + 'px';
+        this._hoek += this._draaisnelheid;
+        this._sneeuw.style.transform = "rotate(" + this._hoek + "deg)";
     }
 
     bewegen() {
         let bewegen = requestAnimationFrame( () => {
-            if(this._verticale > inhoud.offsetHeight + inhoud.offsetTop){
+            if(this._verticale > inhoud.offsetHeight + inhoud.offsetTop - 60){
                 this._verticale = inhoud.offsetTop;
                 this._horizontale = (Math.random()*inhoud.offsetWidth) + inhoud.offsetLeft;
                 this.vallen();
@@ -148,11 +155,11 @@ class Sneeuwvlokje {
     }
 }
 
-for(let i=0; i<9; ){
-    let number = Math.random() * 5;
+for(let i=0; i<20; ){
+    let number = Math.random() * 4;
     if(number > 1){
-        window['sneeuw'+i] = new Sneeuwvlokje(Math.random()*inhoud.offsetWidth, 0,number);
+        window['sneeuw'+i] = new Sneeuwvlokje(Math.random()*inhoud.offsetWidth, 0, 1.5, number, Math.random() * 2);
         window['sneeuw'+i].maken();
-        i++
+        i++;
     }
 }

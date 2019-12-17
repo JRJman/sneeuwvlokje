@@ -9,18 +9,22 @@ body {
 
 #uitslag {
     height: 50vh;
+    width: 60vw;
     background-color: red;
 }
 
 p {
     color: white;
+    text-align: center;
     background-color: red;
+    width: 60vw;
     font-size: 50px;
 }
 
 .sneeuwvlokje {
     position: absolute;
-    height: 4em;
-    width: 3em;
-    fill: white;
+    stroke: white;
+    stroke-width: 2px;
+    fill: none;
+    transform-origin: center;
 }
