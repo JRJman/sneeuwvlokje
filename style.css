@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 20vh 20vw;
+}
+
+#uitslag {
+    height: 50vh;
+    background-color: red;
+}
+
+p {
+    color: white;
+    background-color: red;
+    font-size: 50px;
+}
+
+.vlokje {
+    height: 4em;
+    fill: white;
+}
