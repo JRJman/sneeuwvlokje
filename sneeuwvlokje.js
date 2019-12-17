@@ -147,8 +147,12 @@ class Sneeuwvlokje {
         });
     }
 }
-let sneeuw1 = new Sneeuwvlokje(Math.random()*inhoud.offsetWidth, 0,Math.random()*5);
-sneeuw1.maken();
 
-let sneeuw2 = new Sneeuwvlokje(Math.random()*inhoud.offsetWidth, 0,Math.random()*5);
-sneeuw2.maken();
+for(let i=0; i<9; ){
+    let number = Math.random() * 5;
+    if(number > 1){
+        window['sneeuw'+i] = new Sneeuwvlokje(Math.random()*inhoud.offsetWidth, 0,number);
+        window['sneeuw'+i].maken();
+        i++
+    }
+}
