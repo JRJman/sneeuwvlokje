@@ -19,7 +19,7 @@ p {
 }
 
 .sneeuwvlokje {
-    position: relative;
+    position: absolute;
     height: 4em;
     width: 3em;
     fill: white;

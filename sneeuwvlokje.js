@@ -1,3 +1,5 @@
+let inhoud = document.getElementById('uitslag');
+
 class Sneeuwvlokje {
 
     _svg = '<svg version="1.1" class="vlokje" xmlns="http://www.w3.org/2000/svg" ' +
@@ -109,23 +111,44 @@ class Sneeuwvlokje {
         ' </svg>';
 
     constructor(horizontale, verticale, valsnelheid) {
-        this._horizontale = horizontale;
-        this._verticale = verticale;
+        this._horizontale = horizontale + inhoud.offsetTop;
+        this._verticale = verticale + inhoud.offsetLeft;
         this._valsnelheid = valsnelheid;
+        this._sneeuw;
     }
 
     maken() {
-        let sneeuwvlokje = document.createElement('div');
-        sneeuwvlokje.className = 'sneeuwvlokje';
-        sneeuwvlokje.style.top  = this._verticale + 'px';
-        sneeuwvlokje.style.left = this._horizontale + 'px';
-        sneeuwvlokje.innerHTML = this._svg;
-        document.getElementById('uitslag').appendChild(sneeuwvlokje);
+        this._sneeuw = document.createElement('div');
+        this._sneeuw.className = 'sneeuwvlokje';
+        this._sneeuw.style.top  = this._verticale + 'px';
+        this._sneeuw.style.left = this._horizontale + 'px';
+        this._sneeuw.innerHTML = this._svg;
+        inhoud.appendChild(this._sneeuw);
+        this.bewegen();
+    }
+
+    vallen() {
+        this._verticale += this._valsnelheid;
+        this._sneeuw.style.left = this._horizontale + 'px';
+        this._sneeuw.style.top = this._verticale + 'px';
+    }
+
+    bewegen() {
+        let bewegen = requestAnimationFrame( () => {
+            if(this._verticale > inhoud.offsetHeight + inhoud.offsetTop){
+                this._verticale = inhoud.offsetTop;
+                this._horizontale = (Math.random()*inhoud.offsetWidth) + inhoud.offsetLeft;
+                this.vallen();
+                this.bewegen();
+            } else {
+                this.vallen();
+                this.bewegen();
+            }
+        });
     }
 }
-
-let sneeuw1 = new Sneeuwvlokje(Math.random()*900, Math.random()*300,2);
+let sneeuw1 = new Sneeuwvlokje(Math.random()*inhoud.offsetWidth, 0,Math.random()*5);
 sneeuw1.maken();
 
-let sneeuw2 = new Sneeuwvlokje(Math.random()*900, Math.random()*300,2);
+let sneeuw2 = new Sneeuwvlokje(Math.random()*inhoud.offsetWidth, 0,Math.random()*5);
 sneeuw2.maken();
