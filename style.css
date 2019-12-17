@@ -18,7 +18,9 @@ p {
     font-size: 50px;
 }
 
-.vlokje {
+.sneeuwvlokje {
+    position: relative;
     height: 4em;
+    width: 3em;
     fill: white;
 }
